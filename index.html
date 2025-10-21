@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Top 10 Computerspiele</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+  .rating span {
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
+  }
+  .rating span:hover {
+    transform: scale(1.2);
+    color: gold;
+  }
+  </style>
+  
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+  <header class="text-center py-10 border-b border-gray-800">
+    <h1 class="text-4xl font-bold text-blue-400">Top 10 Computerspiele</h1>
+    <p class="text-gray-400 mt-2">Suche, sortiere und entdecke die besten Games aller Zeiten</p>
+  </header>
+
+  <main class="max-w-5xl mx-auto p-6">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+      <input id="searchInput" type="text" placeholder="🔎 Spiel suchen..."
+        class="w-full md:w-1/2 px-4 py-2 rounded-lg bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      <select id="sortSelect"
+        class="px-4 py-2 rounded-lg bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <option value="default">Offizielles Ranking</option>
+        <option value="name">Nach Name (A–Z)</option>
+        <option value="year">Nach Jahr (neueste zuerst)</option>
+        <option value="rating">Nach Bewertung</option>
+      </select>
+      <button id="showFavs" class="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-200">
+        ❤️ Nur Favoriten
+      </button>
+      
+    </div>
+    
+
+    <ol id="gameList" class="space-y-4 list-decimal list-inside">
+      <!-- Jeder Eintrag: klickbar zur Detailseite -->
+      <li class="game border-b border-gray-800 pb-4 flex gap-4 items-center cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition"
+          data-name="The Witcher 3" data-year="2015" data-rating="9.8" onclick="location.href='witcher3.html'">
+          <span class="text-gray-600 text-2xl font-bold w-8 text-right mr-4 counter"></span>
+        <img src="https://upload.wikimedia.org/wikipedia/en/0/0c/Witcher_3_cover_art.jpg" class="w-20 h-20 rounded-lg object-cover" />
+        <div>
+          <h2 class="text-2xl font-semibold text-blue-300">The Witcher 3: Wild Hunt (2015)</h2>
+          <p class="text-gray-400 text-sm">Action-RPG · CD Projekt RED · Bewertung 9.8</p>
+          <div class="rating flex gap-1 text-yellow-400 text-xl" data-game="The Witcher 3">
+            <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+            <p class="avg text-sm text-gray-400 ml-1">⭐ Durchschnitt: –</p>
+          </div>
+          
+        </div>
+        <button class="favorite ml-auto text-gray-500 hover:text-red-400 text-2xl" onclick="toggleFavorite(event, 'The Witcher 3')">♡</button>
+      </li>
+
+      <li class="game border-b border-gray-800 pb-4 flex gap-4 items-center cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition"
+          data-name="Red Dead Redemption 2" data-year="2018" data-rating="9.9" onclick="location.href='rdr2.html'">
+          <span class="text-gray-600 text-2xl font-bold w-8 text-right mr-4 counter"></span>
+        <img src="https://upload.wikimedia.org/wikipedia/en/4/44/Red_Dead_Redemption_II.jpg" class="w-20 h-20 rounded-lg object-cover" />
+        <div>
+          <h2 class="text-2xl font-semibold text-blue-300">Red Dead Redemption 2 (2018)</h2>
+          <p class="text-gray-400 text-sm">Open World · Rockstar Games · Bewertung 9.9</p>
+        </div>
+        <button class="favorite ml-auto text-gray-500 hover:text-red-400 text-2xl" onclick="toggleFavorite(event, 'Red Dead Redemption 2')">♡</button>
+      </li>
+
+      <li class="game border-b border-gray-800 pb-4 flex gap-4 items-center cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition"
+          data-name="Cyberpunk 2077" data-year="2020" data-rating="8.5" onclick="location.href='cyberpunk2077.html'">
+          <span class="text-gray-600 text-2xl font-bold w-8 text-right mr-4 counter"></span>
+        <img src="https://upload.wikimedia.org/wikipedia/en/9/9f/Cyberpunk_2077_box_art.jpg" class="w-20 h-20 rounded-lg object-cover" />
+        <div>
+          <h2 class="text-2xl font-semibold text-blue-300">Cyberpunk 2077 (2020)</h2>
+          <p class="text-gray-400 text-sm">Action / RPG · CD Projekt RED · Bewertung 8.5</p>
+        </div>
+        <button class="favorite ml-auto text-gray-500 hover:text-red-400 text-2xl" onclick="toggleFavorite(event, 'Cyberpunk 2077')">♡</button>
+      </li>
+
+      <li class="game border-b border-gray-800 pb-4 flex gap-4 items-center cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition"
+      data-name="Elden Ring" data-year="2022" data-rating="9.7" onclick="location.href='eldenring.html'">
+      <span class="text-gray-600 text-2xl font-bold w-8 text-right mr-4 counter"></span>
+        <img src="https://upload.wikimedia.org/wikipedia/en/b/b9/Elden_Ring_Box_art.jpg" class="w-20 h-20 rounded-lg object-cover" />
+        <div>
+          <h2 class="text-2xl font-semibold text-blue-300">Elden Ring (2022)</h2>
+          <p class="text-gray-400 text-sm">Action RPG · FromSoftware · Bewertung 9.7</p>
+        </div>
+        <button class="favorite ml-auto text-gray-500 hover:text-red-400 text-2xl" onclick="toggleFavorite(event, 'Elden Ring')">♡</button>
+      </li>
+
+      <li class="game border-b border-gray-800 pb-4 flex gap-4 items-center cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition"
+      data-name="GTA V" data-year="2013" data-rating="9.5" onclick="location.href='gtav.html'">
+      <span class="text-gray-600 text-2xl font-bold w-8 text-right mr-4 counter"></span>
+        <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" class="w-20 h-20 rounded-lg object-cover" />
+        <div>
+          <h2 class="text-2xl font-semibold text-blue-300">Grand Theft Auto V (2013)</h2>
+          <p class="text-gray-400 text-sm">Open World · Rockstar Games · Bewertung 9.5</p>
+        </div>
+        <button class="favorite ml-auto text-gray-500 hover:text-red-400 text-2xl" onclick="toggleFavorite(event, 'GTA V')">♡</button>
+      </li>
+
+      <li class="game border-b border-gray-800 pb-4 flex gap-4 items-center cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition"
+      data-name="Half-Life 2" data-year="2004" data-rating="9.7" onclick="location.href='halflife2.html'">
+      <span class="text-gray-600 text-2xl font-bold w-8 text-right mr-4 counter"></span>
+        <img src="https://upload.wikimedia.org/wikipedia/en/2/25/Half-Life_2_cover.jpg" class="w-20 h-20 rounded-lg object-cover" />
+        <div>
+          <h2 class="text-2xl font-semibold text-blue-300">Half-Life 2 (2004)</h2>
+          <p class="text-gray-400 text-sm">Shooter · Valve · Bewertung 9.7</p>
+        </div>
+        <button class="favorite ml-auto text-gray-500 hover:text-red-400 text-2xl" onclick="toggleFavorite(event, 'Half-Life 2')">♡</button>
+      </li>
+
+      <li class="game border-b border-gray-800 pb-4 flex gap-4 items-center cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition"
+      data-name="Zelda_Breath_of_the_Wild" data-year="2017" data-rating="10" onclick="location.href='cyberpunk2077.html'">
+      <span class="text-gray-600 text-2xl font-bold w-8 text-right mr-4 counter"></span>
+        <img src="https://upload.wikimedia.org/wikipedia/en/0/0e/The_Legend_of_Zelda_Breath_of_the_Wild.jpg" class="w-20 h-20 rounded-lg object-cover" />
+        <div>
+          <h2 class="text-2xl font-semibold text-blue-300">Zelda: Breath of the Wild (2017)</h2>
+          <p class="text-gray-400 text-sm">Adventure · Nintendo · Bewertung 10 / 10</p>
+        </div>
+        <button class="favorite ml-auto text-gray-500 hover:text-red-400 text-2xl" onclick="toggleFavorite(event, 'Zelda_Breath_of_the_Wild')">♡</button>
+      </li>
+
+      <li class="game border-b border-gray-800 pb-4 flex gap-4 items-center cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition"
+      data-name="Dark_Souls III" data-year="2016" data-rating="9.3" onclick="location.href='cyberpunk2077.html'">
+      <span class="text-gray-600 text-2xl font-bold w-8 text-right mr-4 counter"></span>
+        <img src="https://upload.wikimedia.org/wikipedia/en/8/8d/Dark_Souls_III_cover_art.jpg" class="w-20 h-20 rounded-lg object-cover" />
+        <div>
+          <h2 class="text-2xl font-semibold text-blue-300">Dark Souls III (2016)</h2>
+          <p class="text-gray-400 text-sm">Action RPG · FromSoftware · Bewertung 9.3</p>
+        </div>
+        <button class="favorite ml-auto text-gray-500 hover:text-red-400 text-2xl" onclick="toggleFavorite(event, 'Dark_Souls III')">♡</button>
+      </li>
+
+      <li class="game border-b border-gray-800 pb-4 flex gap-4 items-center cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition"
+      data-name="Minecraft" data-year="2011" data-rating="9.4" onclick="location.href='minecraft.html'">
+      <span class="text-gray-600 text-2xl font-bold w-8 text-right mr-4 counter"></span>
+        <img src="https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png" class="w-20 h-20 rounded-lg object-cover" />
+        <div>
+          <h2 class="text-2xl font-semibold text-blue-300">Minecraft (2011)</h2>
+          <p class="text-gray-400 text-sm">Sandbox · Mojang · Bewertung 9.4</p>
+        </div>
+        <button class="favorite ml-auto text-gray-500 hover:text-red-400 text-2xl" onclick="toggleFavorite(event, 'Minecraft')">♡</button>
+      </li>
+
+      <li class="game border-b border-gray-800 pb-4 flex gap-4 items-center cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition"
+      data-name="Doom_Eternal" data-year="2020" data-rating="9.1" onclick="location.href='cyberpunk2077.html'">
+      <span class="text-gray-600 text-2xl font-bold w-8 text-right mr-4 counter"></span>
+        <img src="https://upload.wikimedia.org/wikipedia/en/8/8b/Doom_Eternal.jpg" class="w-20 h-20 rounded-lg object-cover" />
+        <div>
+          <h2 class="text-2xl font-semibold text-blue-300">DOOM Eternal (2020)</h2>
+          <p class="text-gray-400 text-sm">Shooter · id Software · Bewertung 9.1</p>
+        </div>
+        <button class="favorite ml-auto text-gray-500 hover:text-red-400 text-2xl" onclick="toggleFavorite(event, 'Doom_Eternal')">♡</button>
+      </li>
+    </ol>
+  </main>
+
+  <footer class="text-center py-8 border-t border-gray-800 text-gray-500 text-sm">
+    © 2025 – Deine Gaming-Liste | Design mit ❤️ und TailwindCSS
+  </footer>
+
+  <script>
+    const searchInput=document.getElementById("searchInput");
+    const sortSelect=document.getElementById("sortSelect");
+    const gameList=document.getElementById("gameList");
+    const games=Array.from(document.querySelectorAll(".game"));
+
+    searchInput.addEventListener("input",e=>{
+      const term=e.target.value.toLowerCase();
+      games.forEach(g=>{
+        g.style.display=g.dataset.name.toLowerCase().includes(term)?"flex":"none";
+      });
+    });
+
+    sortSelect.addEventListener("change",e=>{
+      const v=e.target.value;
+      let sorted=[...games];
+      if(v==="name") sorted.sort((a,b)=>a.dataset.name.localeCompare(b.dataset.name));
+      if(v==="year") sorted.sort((a,b)=>b.dataset.year-a.dataset.year);
+      if(v==="rating") sorted.sort((a,b)=>b.dataset.rating-a.dataset.rating);
+      gameList.innerHTML="";
+      sorted.forEach(g=>gameList.appendChild(g));
+    });
+  </script>
+  <script>
+    document.querySelectorAll("#gameList li .counter").forEach((el, i) => {
+      el.textContent = i + 1 + ".";
+    });
+  </script>
+  <script>
+    // Favoriten-Logik
+    function getFavorites() {
+      return JSON.parse(localStorage.getItem("favorites") || "[]");
+    }
+  
+    function saveFavorites(favs) {
+      localStorage.setItem("favorites", JSON.stringify(favs));
+    }
+  
+    function toggleFavorite(e, name) {
+      e.stopPropagation(); // verhindert, dass der Klick die Detailseite öffnet
+      let favs = getFavorites();
+      const index = favs.indexOf(name);
+      if (index > -1) {
+        favs.splice(index, 1);
+      } else {
+        favs.push(name);
+      }
+      saveFavorites(favs);
+      updateFavoritesDisplay();
+    }
+  
+    function updateFavoritesDisplay() {
+      const favs = getFavorites();
+      document.querySelectorAll(".favorite").forEach(btn => {
+        const name = btn.getAttribute("onclick").match(/'([^']+)'/)[1];
+        btn.textContent = favs.includes(name) ? "❤️" : "♡";
+        btn.classList.toggle("text-red-500", favs.includes(name));
+        btn.classList.toggle("text-gray-500", !favs.includes(name));
+      });
+    }
+  
+    document.addEventListener("DOMContentLoaded", updateFavoritesDisplay);
+    
+    const favButton = document.getElementById("showFavs");
+let showOnlyFavs = false;
+
+favButton.addEventListener("click", () => {
+  showOnlyFavs = !showOnlyFavs;
+  const favs = getFavorites();
+  favButton.textContent = showOnlyFavs ? "💔 Alle Spiele" : "❤️ Nur Favoriten";
+  favButton.classList.toggle("bg-red-300", showOnlyFavs);
+  favButton.classList.toggle("bg-gray-800", !showOnlyFavs);
+
+  document.querySelectorAll("#gameList li").forEach(li => {
+    const title = li.querySelector("h2").textContent;
+    if (showOnlyFavs) {
+      li.style.display = favs.some(f => title.includes(f)) ? "flex" : "none";
+    } else {
+      li.style.display = "flex";
+    }
+  });
+});
+
+
+  </script>
+  
+  <script>
+    // --- Sternebewertung ---
+    function getRatings() {
+      return JSON.parse(localStorage.getItem("ratings") || "{}");
+    }
+  
+    function saveRatings(ratings) {
+      localStorage.setItem("ratings", JSON.stringify(ratings));
+    }
+  
+    function updateStars(game, rating) {
+      const container = document.querySelector(`.rating[data-game="${game}"]`);
+      if (!container) return;
+      const stars = container.querySelectorAll("span");
+      stars.forEach((s, i) => {
+        s.textContent = i < rating ? "★" : "☆";
+      });
+    }
+  
+    function updateAllRatings() {
+      const ratings = getRatings();
+      for (const [game, rating] of Object.entries(ratings)) {
+        updateStars(game, rating);
+      }
+    }
+  
+    document.querySelectorAll(".rating span").forEach((star, index) => {
+      star.addEventListener("click", e => {
+        const container = e.target.closest(".rating");
+        const game = container.getAttribute("data-game");
+        const ratings = getRatings();
+        ratings[game] = index + 1; // Bewertung speichern
+        saveRatings(ratings);
+        updateStars(game, index + 1);
+      });
+    });
+  
+    document.addEventListener("DOMContentLoaded", updateAllRatings);
+  </script>
+  
+  <script type="module">
+    // Prüfen, ob schon eine User-ID existiert, sonst generieren
+let userId = localStorage.getItem("userId");
+if (!userId) {
+  userId = 'user_' + Math.random().toString(36).substr(2, 9);
+  localStorage.setItem("userId", userId);
+}
+
+    // Firebase SDKs importieren
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getDatabase, ref, get, set, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+  
+    // 🔥 Deine Firebase-Konfiguration hier einfügen!
+    const firebaseConfig = {
+  apiKey: "AIzaSyBcZ-uTuqIjo2aGykHO8Z-AAYAj3XturJM",
+  authDomain: "topgames-3a050.firebaseapp.com",
+  databaseURL: "https://topgames-3a050-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "topgames-3a050",
+  storageBucket: "topgames-3a050.firebasestorage.app",
+  messagingSenderId: "389330561319",
+  appId: "1:389330561319:web:a9e313f393f0ae42d06102",
+  measurementId: "G-MVY72K081M"
+};
+  
+    // 1️⃣ App initialisieren
+    const app = initializeApp(firebaseConfig);
+  
+    // 2️⃣ Datenbank initialisieren (JETZT funktioniert getDatabase)
+    const db = getDatabase(app);
+  
+    // --- Beispielcode: Bewertungen speichern ---
+    document.querySelectorAll(".rating span").forEach((star, index) => {
+      star.addEventListener("click", e => {
+        const container = e.target.closest(".rating");
+        const game = container.getAttribute("data-game");
+        const rating = index + 1;
+  
+        const gameRef = ref(db, "ratings/" + game);
+        get(gameRef).then(snapshot => {
+          let data = snapshot.exists() ? snapshot.val() : { total: 0, count: 0 };
+          data.total += rating;
+          data.count += 1;
+          set(gameRef, data);
+        });
+      });
+    });
+  
+    // --- Durchschnitt live anzeigen ---
+    document.querySelectorAll(".rating span").forEach((star, index) => {
+  star.addEventListener("click", e => {
+    const container = e.target.closest(".rating");
+    const game = container.getAttribute("data-game");
+    const rating = index + 1;
+
+    const gameRef = ref(db, "ratings/" + game + "/users/" + userId);
+
+    // Schreibe oder aktualisiere die Bewertung für diesen User
+    set(gameRef, rating);
+  });
+});
+document.querySelectorAll(".rating").forEach(container => {
+  const game = container.getAttribute("data-game");
+  const avgElem = container.nextElementSibling;
+  const gameRef = ref(db, "ratings/" + game + "/users");
+
+  onValue(gameRef, snapshot => {
+    if (snapshot.exists()) {
+      const ratings = Object.values(snapshot.val());
+      const total = ratings.reduce((a,b) => a+b, 0);
+      const count = ratings.length;
+      const avg = total / count;
+      avgElem.textContent = `⭐ Durchschnitt: ${avg.toFixed(1)} / 5 (${count} Bewertungen)`;
+    } else {
+      avgElem.textContent = "⭐ Durchschnitt: –";
+    }
+  });
+});
+document.querySelectorAll(".rating").forEach(container => {
+  const game = container.getAttribute("data-game");
+  const avgElem = container.nextElementSibling; // das <p> darunter
+  const gameRef = ref(db, "ratings/" + game + "/users");
+
+  // Echtzeit-Listener
+  onValue(gameRef, snapshot => {
+    if (snapshot.exists()) {
+      const ratings = Object.values(snapshot.val()); // alle User-Bewertungen
+      const total = ratings.reduce((a,b) => a+b, 0);
+      const count = ratings.length;
+      const avg = total / count;
+      avgElem.textContent = `⭐ Durchschnitt: ${avg.toFixed(1)} / 5 (${count} Bewertungen)`;
+    } else {
+      avgElem.textContent = "⭐ Durchschnitt: –";
+    }
+  });
+});
+
+
+  </script>
+  
+
+</body>
+</html>
+
