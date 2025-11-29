@@ -1,23 +1,155 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Grand Theft Auto V – Details</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .rating .star:hover { transform: scale(1.2);}
+    .rating { user-select: none;}
+    @keyframes slideInRight { 0%{opacity:0;transform:translateX(100%);} 10%,90%{opacity:1;transform:translateX(0);} 100%{opacity:0;transform:translateX(100%);} }
+    .toast { display: flex;align-items: center;gap: 10px;padding: 12px 16px; border-radius: 8px;color: white;font-weight: 500;min-width: 250px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); animation: slideInRight 3.5s ease-in-out forwards;opacity: 0;}
+    .toast-icon { font-size: 1.4rem;}
+    .toast-success { background: linear-gradient(135deg,#16a34a,#15803d);}
+    .toast-error { background: linear-gradient(135deg,#dc2626,#b91c1c);}
+    .toast-info { background: linear-gradient(135deg,#2563eb,#1d4ed8);}
+    .toast-warning { background: linear-gradient(135deg,#facc15,#eab308); color: #1a1a1a;}
+    .aspect-video {position: relative;padding-bottom: 56.25%;}
+    .aspect-video > iframe { position: absolute;width: 100%;height: 100%;top: 0;left: 0;}
+    @keyframes pulse-gold { 0%{box-shadow:0 0 0 0 rgba(255, 204, 102, 0.7);} 70%{box-shadow:0 0 0 10px rgba(255, 204, 102, 0);} 100%{box-shadow:0 0 0 0 rgba(255, 204, 102, 0);} }
+    .affiliate-pulse {animation: pulse-gold 2s infinite;}
+  </style>
 </head>
+<header class="bg-gray-800 text-white flex items-center justify-between px-6 py-3 shadow-md sticky top-0 z-50">
+  <div class="flex items-center space-x-3 cursor-pointer" onclick="window.location.href='index.html'">
+    <img src="Logo.png" alt="Logo" class="w-10 h-10 rounded-full">
+    <span class="text-3xl font-bold">TopGames</span>
+  </div>
+  <nav class="flex space-x-4">
+    <button class="px-4 py-2 bg-blue-600 rounded hover:bg-blue-500 transition" onclick="window.location.href='index.html'">Home</button>
+    <button class="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600 transition" onclick="window.location.href='more.html'">Impressum</button>
+  </nav>
+</header>
 <body class="bg-gray-900 text-gray-100 font-sans">
-  <main class="max-w-3xl mx-auto p-6">
+  <div id="toastContainer" class="fixed top-4 right-4 space-y-3 z-50"></div>
+  <main class="max-w-6xl mx-auto p-6">
     <a href="index.html" class="text-blue-400 hover:text-blue-300">← Zurück zur Liste</a>
-    <div class="mt-6 flex flex-col md:flex-row gap-6">
-      <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" class="w-60 rounded-lg object-cover">
-      <div>
-        <h1 class="text-3xl font-bold text-blue-300">Grand Theft Auto V (2013)</h1>
-        <p class="text-gray-400 mt-1">Genre: Open World / Action · Entwickler: Rockstar Games</p>
-        <p class="mt-4">Erlebe Los Santos durch die Augen von drei unvergesslichen Charakteren. GTA V kombiniert Humor, Action und Freiheit in einer riesigen, dynamischen Spielwelt.</p>
-        <a href="#" class="inline-block mt-4 text-blue-400 hover:text-blue-300">🔗 Zum Produkt</a>
+    <div class="mt-10 flex flex-col md:flex-row gap-6">
+      <div class="md:w-3/4 flex flex-col lg:flex-row gap-6">
+        <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" class="w-60 rounded-lg object-cover" />
+        <div>
+          <h1 class="text-3xl font-bold text-yellow-400">Grand Theft Auto V (2013)</h1>
+          <p class="text-gray-400 mt-1">Genre: Action-Adventure · Plattform: PC / PS3 / PS4 / PS5 / Xbox 360 / Xbox One / Xbox Series X/S</p>
+          <p class="mt-4">
+            Schlüpfe in die Rolle von Michael, Trevor und Franklin in der größten, offensten Welt von Rockstar Games. Erlebe unzählige Missionen, Raubüberfälle und eine irre Open World in Los Santos – allein, im Story-Modus oder online!
+          </p>
+          <button onclick="window.open('https://www.instant-gaming.com/de/4211-kaufen-grand-theft-auto-v-enhanced-pc-rockstar/?igr=official-rankings', '_blank')" class="mt-5 px-4 py-2 bg-yellow-400 hover:bg-yellow-300 rounded-lg font-semibold shadow-lg affiliate-pulse">💸 Günstig kaufen auf Instant Gaming!</button>
+        </div>
+      </div>
+      <div class="md:w-1/4 mt-20">
+        <div class="bg-gray-800 p-4 rounded-lg shadow-md mt-6 md:mt-0">
+          <h3 class="text-xl font-semibold mb-3 text-yellow-400">Spiel-Details</h3>
+          <ul class="space-y-2 text-gray-300 text-sm">
+            <li><strong>Entwickler:</strong> Rockstar North</li>
+            <li><strong>Publisher:</strong> Rockstar Games</li>
+            <li><strong>Release-Datum:</strong> 17. September 2013</li>
+            <li><strong>Plattformen:</strong> PC, PS3, PS4, PS5, Xbox 360, Xbox One, Xbox Series X/S</li>
+            <li><strong>Offizielle Website:</strong> <a href="https://www.rockstargames.com/V" target="_blank" class="text-blue-400 hover:underline">rockstargames.com/V</a></li>
+          </ul>
+        </div>
       </div>
     </div>
+    <h4 class="text-xl font-bold text-gray-300 mt-8 mb-3">Highlights</h4>
+    <ul class="list-disc list-inside space-y-1 text-gray-400 ml-4">
+      <li>Offene Welt voller Möglichkeiten & Easter Eggs.</li>
+      <li>3 spielbare Hauptcharaktere.</li>
+      <li>Online-Modus mit ständig neuen Inhalten.</li>
+      <li>Heist-Missionen, Autorennen, Chaos & mehr.</li>
+    </ul>
+    <div class="mt-10 mb-12 flex flex-col md:flex-row gap-8">
+      <div class="md:w-1/2 p-6 bg-gray-800 rounded-xl shadow-lg">
+        <p class="text-3xl font-bold text-yellow-400 mb-2">User Rating:</p>
+        <div class="rating flex gap-1 text-yellow-400 text-4xl mt-1" data-game="GTA V">
+          <span class="star cursor-pointer transition-transform duration-150">☆</span>
+          <span class="star cursor-pointer transition-transform duration-150">☆</span>
+          <span class="star cursor-pointer transition-transform duration-150">☆</span>
+          <span class="star cursor-pointer transition-transform duration-150">☆</span>
+          <span class="star cursor-pointer transition-transform duration-150">☆</span>
+        </div>
+        <p class="avg text-sm text-gray-400 mt-2">⭐ Durchschnitt: –</p>
+      </div>
+      <div class="md:w-1/2 p-6 bg-gray-800 rounded-xl shadow-lg">
+        <p class="text-3xl font-bold text-blue-400 mb-4">Kritiker-Scores:</p>
+        <div class="flex gap-8">
+          <div>
+            <span class="text-4xl font-extrabold text-green-500">97</span>
+            <p class="text-gray-400">Metacritic Score (PC)</p>
+          </div>
+          <div>
+            <span class="text-4xl font-extrabold text-blue-500">7.8</span>
+            <p class="text-gray-400">User Score (Metacritic, PC)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h2 class="text-2xl font-bold text-yellow-400 mt-10 mb-4">Launch Trailer</h2>
+    <div class="aspect-video w-full rounded-lg overflow-hidden shadow-lg">
+      <iframe src="https://www.youtube.com/embed/QkkoHAzjnUs" title="GTA V Launch Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
+    </div>
+    <h2 class="text-2xl font-bold text-yellow-400 mt-10 mb-4">Screenshots</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/271590/ss_0a1831cfae670f27191b2bb701b0e4f33a805e80.1920x1080.jpg?t=1680115848" alt="GTA V Screenshot 1" class="rounded-lg object-cover" />
+      <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/271590/ss_42d9a910ea6ffba2e5241f24439bf0611f6a9d6b.1920x1080.jpg?t=1680115848" alt="GTA V Screenshot 2" class="rounded-lg object-cover" />
+      <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/271590/ss_96f800e58c85aaa8217aa6defa415d754a9fbab2.1920x1080.jpg?t=1680115848" alt="GTA V Screenshot 3" class="rounded-lg object-cover" />
+    </div>
+    <h2 class="text-2xl font-bold text-yellow-400 mt-10 mb-4">Online-Modus / DLCs</h2>
+    <div class="flex flex-col md:flex-row gap-6">
+      <div class="flex gap-4 bg-gray-800 p-3 rounded-lg">
+        <img src="https://media-rockstargames-com.akamaized.net/tina-uploads/posts/6k51k9343899k6/e46777ccfa2e86c89b585aace3fef720e7807c45.jpg" class="w-20 h-28 object-cover rounded">
+        <div>
+          <h4 class="font-semibold text-lg">GTA Online</h4>
+          <p class="text-gray-400 text-sm">Ständig aktualisierte neue Inhalte, Heists, Events, Fahrzeuge, Immobilien und vieles mehr.</p>
+        </div>
+      </div>
+    </div>
+    <h2 class="text-2xl font-bold text-yellow-400 mt-10 mb-4">Systemanforderungen (PC)</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-800 p-6 rounded-xl shadow-lg mb-12">
+      <div>
+        <h4 class="font-semibold text-xl text-yellow-400 mb-3">Minimal</h4>
+        <ul class="list-disc list-inside space-y-2 text-gray-300 pl-4">
+          <li><strong>OS:</strong> Windows 10 (64 Bit)</li>
+          <li><strong>Prozessor:</strong> Intel Core 2 Quad Q6600 / AMD Phenom 9850</li>
+          <li><strong>Arbeitsspeicher:</strong> 4 GB RAM</li>
+          <li><strong>Grafikkarte:</strong> NVIDIA 9800 GT / AMD HD 4870</li>
+          <li><strong>Speicherplatz:</strong> 110 GB verfügbarer Speicherplatz</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold text-xl text-yellow-400 mb-3">Empfohlen</h4>
+        <ul class="list-disc list-inside space-y-2 text-gray-300 pl-4">
+          <li><strong>OS:</strong> Windows 10 (64 Bit)</li>
+          <li><strong>Prozessor:</strong> Intel Core i5 3470 / AMD X8 FX-8350</li>
+          <li><strong>Arbeitsspeicher:</strong> 8 GB RAM</li>
+          <li><strong>Grafikkarte:</strong> NVIDIA GTX 660 2GB / AMD HD 7870 2GB</li>
+          <li><strong>Speicherplatz:</strong> 110 GB verfügbarer Speicherplatz (SSD empfohlen)</li>
+        </ul>
+      </div>
+    </div>
+    <div id="instantGamingBanner_GTA" class="mt-8"></div>
+    <script>
+      window.igBannerConfig = {
+          lang: 'de',
+          igr: 'official-rankings',
+          banners: {
+              instantGamingBanner_GTA: { format: 'horizontal' }
+          }
+      };
+    </script>
+    <script src="https://www.instant-gaming.com/api/banner/partner/loader.js" defer></script>
   </main>
+  <script type="module">
+    // ... gleiches Ratings-Firebase- und Toast-Skript wie bei den anderen Spieleseiten ...
+  </script>
 </body>
 </html>
