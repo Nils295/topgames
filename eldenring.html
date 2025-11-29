@@ -1,23 +1,251 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Elden Ring – Details</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .rating .star:hover { transform: scale(1.2);}
+    .rating { user-select: none;}
+    @keyframes slideInRight {
+      0%{opacity:0;transform:translateX(100%);}
+      10%,90%{opacity:1;transform:translateX(0);}
+      100%{opacity:0;transform:translateX(100%);}
+    }
+    .toast {
+      display: flex;align-items: center;gap: 10px;padding: 12px 16px;
+      border-radius: 8px;color: white;font-weight: 500;min-width: 250px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      animation: slideInRight 3.5s ease-in-out forwards;opacity: 0;
+    }
+    .toast-icon { font-size: 1.4rem;}
+    .toast-success { background: linear-gradient(135deg,#16a34a,#15803d);}
+    .toast-error { background: linear-gradient(135deg,#dc2626,#b91c1c);}
+    .toast-info { background: linear-gradient(135deg,#2563eb,#1d4ed8);}
+    .toast-warning { background: linear-gradient(135deg,#facc15,#eab308); color: #1a1a1a;}
+    .aspect-video {position: relative;padding-bottom: 56.25%;}
+    .aspect-video > iframe {
+      position: absolute;width: 100%;height: 100%;top: 0;left: 0;
+    }
+    @keyframes pulse-gold {
+      0%{box-shadow:0 0 0 0 rgba(255, 204, 102, 0.7);}
+      70%{box-shadow:0 0 0 10px rgba(255, 204, 102, 0);}
+      100%{box-shadow:0 0 0 0 rgba(255, 204, 102, 0);}
+    }
+    .affiliate-pulse {animation: pulse-gold 2s infinite;}
+  </style>
 </head>
+<header class="bg-gray-800 text-white flex items-center justify-between px-6 py-3 shadow-md sticky top-0 z-50">
+  <div class="flex items-center space-x-3 cursor-pointer" onclick="window.location.href='index.html'">
+    <img src="Logo.png" alt="Logo" class="w-10 h-10 rounded-full">
+    <span class="text-3xl font-bold">TopGames</span>
+  </div>
+  <nav class="flex space-x-4">
+    <button class="px-4 py-2 bg-blue-600 rounded hover:bg-blue-500 transition" onclick="window.location.href='index.html'">Home</button>
+    <button class="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600 transition" onclick="window.location.href='more.html'">Impressum</button>
+  </nav>
+</header>
 <body class="bg-gray-900 text-gray-100 font-sans">
-  <main class="max-w-3xl mx-auto p-6">
+  <div id="toastContainer" class="fixed top-4 right-4 space-y-3 z-50"></div>
+  <main class="max-w-6xl mx-auto p-6">
     <a href="index.html" class="text-blue-400 hover:text-blue-300">← Zurück zur Liste</a>
-    <div class="mt-6 flex flex-col md:flex-row gap-6">
-      <img src="https://upload.wikimedia.org/wikipedia/en/b/b9/Elden_Ring_Box_art.jpg" class="w-60 rounded-lg object-cover">
-      <div>
-        <h1 class="text-3xl font-bold text-blue-300">Elden Ring (2022)</h1>
-        <p class="text-gray-400 mt-1">Genre: Action-RPG · Entwickler: FromSoftware</p>
-        <p class="mt-4">Eine offene, mystische Welt erschaffen von Hidetaka Miyazaki und George R. R. Martin. Erkunde das Zwischenland, stelle dich mächtigen Gegnern und entdecke uralte Geheimnisse.</p>
-        <a href="#" class="inline-block mt-4 text-blue-400 hover:text-blue-300">🔗 Zum Produkt</a>
+    <div class="mt-10 flex flex-col md:flex-row gap-6">
+      <div class="md:w-3/4 flex flex-col lg:flex-row gap-6">
+        <img src="https://upload.wikimedia.org/wikipedia/en/b/b9/Elden_Ring_Box_art.jpg" class="w-60 rounded-lg object-cover" />
+        <div>
+          <h1 class="text-3xl font-bold text-green-400">Elden Ring (2022)</h1>
+          <p class="text-gray-400 mt-1">Genre: Action-RPG · Plattform: PC / PS4 / PS5 / Xbox One / Xbox Series X/S</p>
+          <p class="mt-4">
+            Wage dich ins Zwischenland! Erkunde eine faszinierende Open World aus der Feder von FromSoftware, voller tödlicher Gefahren, unglaublicher Bosse und einer mysteriösen Lore. Kämpfe, sammle Runen, besiege Bosse und werde zum Eldenfürsten!
+          </p>
+          <button onclick="window.open('https://www.instant-gaming.com/de/3247-kaufen-elden-ring-pc-spiel-steam/', '_blank')" class="mt-5 px-4 py-2 bg-green-500 hover:bg-green-400 rounded-lg font-semibold shadow-lg affiliate-pulse">💀 Günstig kaufen auf Instant Gaming!</button>
+        </div>
+      </div>
+      <div class="md:w-1/4 mt-20">
+        <div class="bg-gray-800 p-4 rounded-lg shadow-md mt-6 md:mt-0">
+          <h3 class="text-xl font-semibold mb-3 text-green-400">Spiel-Details</h3>
+          <ul class="space-y-2 text-gray-300 text-sm">
+            <li><strong>Entwickler:</strong> FromSoftware</li>
+            <li><strong>Publisher:</strong> Bandai Namco Entertainment</li>
+            <li><strong>Release-Datum:</strong> 25. Februar 2022</li>
+            <li><strong>Plattformen:</strong> PC, PS4, Xbox One, PS5, Xbox Series X/S</li>
+            <li><strong>Offizielle Website:</strong> <a href="https://de.bandainamcoent.eu/elden-ring/elden-ring" target="_blank" class="text-blue-400 hover:underline">eldengame.com</a></li>
+          </ul>
+        </div>
       </div>
     </div>
+    <h4 class="text-xl font-bold text-gray-300 mt-8 mb-3">Highlights</h4>
+    <ul class="list-disc list-inside space-y-1 text-gray-400 ml-4">
+      <li>Riesige, frei erkundbare Welt/Landschaft.</li>
+      <li>Herausfordernde Bosskämpfe und Dungeons.</li>
+      <li>Riesige Build-Vielfalt und Koop/Online-Ereignisse.</li>
+      <li>Epos von Hidetaka Miyazaki und George R.R. Martin.</li>
+    </ul>
+    <div class="mt-10 mb-12 flex flex-col md:flex-row gap-8">
+      <div class="md:w-1/2 p-6 bg-gray-800 rounded-xl shadow-lg">
+        <p class="text-3xl font-bold text-green-400 mb-2">User Rating:</p>
+        <div class="rating flex gap-1 text-yellow-400 text-4xl mt-1" data-game="Elden Ring">
+          <span class="star cursor-pointer transition-transform duration-150">☆</span>
+          <span class="star cursor-pointer transition-transform duration-150">☆</span>
+          <span class="star cursor-pointer transition-transform duration-150">☆</span>
+          <span class="star cursor-pointer transition-transform duration-150">☆</span>
+          <span class="star cursor-pointer transition-transform duration-150">☆</span>
+        </div>
+        <p class="avg text-sm text-gray-400 mt-2">⭐ Durchschnitt: –</p>
+      </div>
+      <div class="md:w-1/2 p-6 bg-gray-800 rounded-xl shadow-lg">
+        <p class="text-3xl font-bold text-blue-400 mb-4">Kritiker-Scores:</p>
+        <div class="flex gap-8">
+          <div>
+            <span class="text-4xl font-extrabold text-green-500">94</span>
+            <p class="text-gray-400">Metacritic Score (PC)</p>
+          </div>
+          <div>
+            <span class="text-4xl font-extrabold text-blue-500">7.7</span>
+            <p class="text-gray-400">User Score (Metacritic, PC)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h2 class="text-2xl font-bold text-green-400 mt-10 mb-4">Launch Trailer</h2>
+    <div class="aspect-video w-full rounded-lg overflow-hidden shadow-lg">
+      <iframe 
+        src="https://www.youtube.com/embed/E3Huy2cdih0"
+        title="Elden Ring – Launch Trailer"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        class="w-full h-full"
+      ></iframe>
+    </div>
+    <h2 class="text-2xl font-bold text-green-400 mt-10 mb-4">Screenshots</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <img src="https://cdn.akamai.steamstatic.com/steam/apps/1245620/ss_ca6a9abb82a7d71dab18295ba2ae2a8fb5f7ee81.1920x1080.jpg?t=1707497611" alt="Elden Ring Screenshot 1" class="rounded-lg object-cover" />
+      <img src="https://cdn.akamai.steamstatic.com/steam/apps/1245620/ss_1b59cb37f5fc0e73bda2d1228990745cda5d4943.1920x1080.jpg?t=1707497611" alt="Elden Ring Screenshot 2" class="rounded-lg object-cover" />
+      <img src="https://cdn.akamai.steamstatic.com/steam/apps/1245620/ss_8bc4082d74be6d8bc229d9e7b4f841d393a4e249.1920x1080.jpg?t=1707497611" alt="Elden Ring Screenshot 3" class="rounded-lg object-cover" />
+    </div>
+    <h2 class="text-2xl font-bold text-green-400 mt-10 mb-4">Erweiterungen / DLCs</h2>
+    <div class="flex flex-col md:flex-row gap-6">
+      <div class="flex gap-4 bg-gray-800 p-3 rounded-lg">
+        <img src="https://static.bandainamcoent.eu/high/elden-ring/elden-ring_2023/02-news/shadow-erdtree.jpg" class="w-20 h-28 object-cover rounded">
+        <div>
+          <h4 class="font-semibold text-lg">Shadow of the Erdtree</h4>
+          <p class="text-gray-400 text-sm">Das große DLC bringt neue Gebiete, Waffen, Legenden-Bosse und über 20 Stunden zusätzliche Story!</p>
+        </div>
+      </div>
+    </div>
+    <h2 class="text-2xl font-bold text-green-400 mt-10 mb-4">Systemanforderungen (PC)</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-800 p-6 rounded-xl shadow-lg mb-12">
+      <div>
+        <h4 class="font-semibold text-xl text-green-400 mb-3">Minimal</h4>
+        <ul class="list-disc list-inside space-y-2 text-gray-300 pl-4">
+          <li><strong>OS:</strong> Windows 10 (64 Bit)</li>
+          <li><strong>Prozessor:</strong> Intel Core i5-8400 oder AMD Ryzen 3 3300X</li>
+          <li><strong>Arbeitsspeicher:</strong> 12 GB RAM</li>
+          <li><strong>Grafikkarte:</strong> NVIDIA GeForce GTX 1060 3 GB oder AMD Radeon RX 580 4 GB</li>
+          <li><strong>Speicherplatz:</strong> 60 GB verfügbarer Speicherplatz</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold text-xl text-green-400 mb-3">Empfohlen</h4>
+        <ul class="list-disc list-inside space-y-2 text-gray-300 pl-4">
+          <li><strong>OS:</strong> Windows 10/11 (64 Bit)</li>
+          <li><strong>Prozessor:</strong> Intel Core i7-8700K oder AMD Ryzen 5 3600X</li>
+          <li><strong>Arbeitsspeicher:</strong> 16 GB RAM</li>
+          <li><strong>Grafikkarte:</strong> NVIDIA GeForce GTX 1070 8 GB oder AMD Radeon RX VEGA 56 8 GB</li>
+          <li><strong>Speicherplatz:</strong> 60 GB verfügbarer Speicherplatz (SSD empfohlen)</li>
+        </ul>
+      </div>
+    </div>
+    <div id="instantGamingBanner_Game3"></div>
+    <script>
+      window.igBannerConfig = {
+          lang: 'de',
+          igr: 'official-rankings',
+          banners: {
+              instantGamingBanner_Game3: { format: 'horizontal' }
+          }
+      };
+    </script>
+    <script src="https://www.instant-gaming.com/api/banner/partner/loader.js" defer></script>
   </main>
+  <script type="module">
+    function showToast(message, type = "success") {
+      const container = document.getElementById("toastContainer");
+      const toast = document.createElement("div");
+      toast.classList.add("toast");
+      const icons = { success: "✅", error: "❌", info: "ℹ️", warning: "⚠️"};
+      const typeClass = {
+        success: "toast-success",
+        error: "toast-error",
+        info: "toast-info",
+        warning: "toast-warning"
+      }[type];
+      toast.classList.add(typeClass);
+      toast.innerHTML = `
+        <span class="toast-icon">${icons[type]}</span>
+        <span>${message}</span>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 3500);
+    }
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyBcZ-uTuqIjo2aGykHO8Z-AAYAj3XturJM",
+      authDomain: "topgames-3a050.firebaseapp.com",
+      databaseURL: "https://topgames-3a050-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "topgames-3a050",
+      storageBucket: "topgames-3a050.firebasestorage.app",
+      messagingSenderId: "389330561319",
+      appId: "1:389330561319:web:a9e313f393f0ae42d06102",
+      measurementId: "G-MVY72K081M"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    let userId = localStorage.getItem("userId");
+    if (!userId) {
+      userId = 'user_' + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem("userId", userId);
+    }
+    const container = document.querySelector(".rating");
+    const avgElem = container.nextElementSibling;
+    const game = container.getAttribute("data-game");
+    const stars = container.querySelectorAll(".star");
+    function updateStars(currentRating) {
+      stars.forEach((star, index) => { star.textContent = (index < currentRating) ? '★' : '☆'; });
+    }
+    stars.forEach((star, index) => {
+      star.addEventListener("click", () => {
+        const rating = index + 1;
+        set(ref(db, "ratings/" + game + "/users/" + userId), rating);
+        showToast("⭐ Bewertung gespeichert!", "success");
+      });
+      star.addEventListener("mouseover", () => { updateStars(index + 1); });
+      star.addEventListener("mouseout", () => {
+        const userRef = ref(db, "ratings/" + game + "/users/" + userId);
+        onValue(userRef, snapshot => {
+          const savedRating = snapshot.exists() ? snapshot.val() : 0;
+          updateStars(savedRating);
+        }, { onlyOnce: true });
+      });
+    });
+    const usersRef = ref(db, "ratings/" + game + "/users");
+    onValue(usersRef, snapshot => {
+      let total = 0, count = 0, userRating = 0;
+      if (snapshot.exists()) {
+        const ratings = snapshot.val();
+        Object.entries(ratings).forEach(([uid, rating]) => {
+          total += rating;
+          count++;
+          if (uid === userId) userRating = rating;
+        });
+      }
+      const avg = count > 0 ? (total / count).toFixed(1) : "-";
+      avgElem.textContent = `⭐ Durchschnitt: ${avg} / 5 (${count} Bewertungen)`;
+      updateStars(userRating);
+    });
+  </script>
 </body>
 </html>
