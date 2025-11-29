@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Daily Battle – TopGames</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+  
+  
+
+  
+  
+<body class="bg-gray-900 text-white font-sans ">
+
+
+    <header class=" text-white rounded-lg py-4 shadow-md sticky m0 p0 top-0 z-50">
+        <div class="flex items-center justify-between">
+          <!-- Logo -->
+          <div class="flex items-center space-x-3 cursor-pointer" onclick="window.location.href='index.html'">
+            <img src="Logo.png" alt="Logo" class="w-10 h-10 rounded-full ml-6">
+            <span class="text-2xl font-bold">TopGames</span>
+          </div>
+      
+          <!-- Navigation Buttons -->
+          <nav class="flex space-x-4">
+            <button class="px-4 py-2 bg-blue-600 rounded hover:bg-blue-500 transition" onclick="window.location.href='index.html'">Home</button>
+            <button class="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600 transition" onclick="window.location.href='battle-history.html'">Battle Historie</button>
+            <button class="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600 transition" onclick="window.location.href='more.html'">Impressum</button>
+          </nav>
+        </div>
+      
+        
+      </header>
+ 
+
+  <h1 class="text-4xl font-bold text-center text-red-400 mb-6 mt-10">⚔️ Daily Battle</h1>
+  <p class="text-center text-gray-400 mb-8">Stimme für dein Lieblingsspiel – jeden Tag ein neues Duell!</p>
+
+  <div id="battleContainer" class="flex flex-col md:flex-row justify-center items-center gap-8 mb-6">
+    <!-- Spielkarten werden dynamisch eingefügt -->
+  </div>
+
+  <div id="result" class="text-center text-yellow-400 font-semibold text-lg mb-6">Lade Ergebnisse…</div>
+
+  <div class="text-center">
+    <a href="battle-history.html" class="text-blue-400 hover:underline">📅 Zur Battle-Historie</a>
+  </div>
+  <!-- Countdown bis 20 Uhr -->
+<div id="countdown" class="mt-2 text-sm text-gray-400 text-center"></div>
+
+<main class="max-w-5xl mx-auto p-6 mt-10">
+
+
+  <div class="" id="instantGamingBanner_Game1"></div>
+
+  <script>
+      window.igBannerConfig = {
+          lang: 'de',
+          igr: 'official-rankings',
+          banners: {
+              instantGamingBanner_Game1: { format: 'horizontal' }
+          }
+      };
+  </script>
+  <script src="https://www.instant-gaming.com/api/banner/partner/loader.js" defer></script>
+
+
+</main>
+  
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getDatabase, ref, get, set, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+  
+    const firebaseConfig = {
+      apiKey: "AIzaSyBcZ-uTuqIjo2aGykHO8Z-AAYAj3XturJM",
+      authDomain: "topgames-3a050.firebaseapp.com",
+      databaseURL: "https://topgames-3a050-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "topgames-3a050",
+      storageBucket: "topgames-3a050.appspot.com",
+      messagingSenderId: "389330561319",
+      appId: "1:389330561319:web:a9e313f393f0ae42d06102"
+    };
+  
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+  
+    const today = new Date().toISOString().split("T")[0];
+    const battleRef = ref(db, "dailyBattle/" + today);
+    const container = document.getElementById("battleContainer");
+    const result = document.getElementById("result");
+  
+    const gameData = {
+      "The Witcher 3": "https://upload.wikimedia.org/wikipedia/en/0/0c/Witcher_3_cover_art.jpg",
+      "Elden Ring": "https://upload.wikimedia.org/wikipedia/en/b/b9/Elden_Ring_Box_art.jpg",
+      "Cyberpunk 2077": "https://upload.wikimedia.org/wikipedia/en/9/9f/Cyberpunk_2077_box_art.jpg",
+      "GTA V": "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png",
+      "Zelda_Breath_of_the_Wild": "https://upload.wikimedia.org/wikipedia/en/0/0e/The_Legend_of_Zelda_Breath_of_the_Wild.jpg"
+    };
+  
+    get(battleRef).then(snapshot => {
+      if (!snapshot.exists()) {
+        const games = Object.keys(gameData);
+        const shuffled = games.sort(() => 0.5 - Math.random());
+        const [game1, game2] = shuffled.slice(0, 2);
+        set(battleRef, {
+          game1,
+          game2,
+          votes: { [game1]: 0, [game2]: 0 }
+        }).then(() => {
+          console.log("✅ Neues Battle erstellt:", game1, "vs", game2);
+          renderBattle(game1, game2);
+        }).catch(error => {
+          console.error("❌ Fehler beim Erstellen des Battles:", error);
+          result.textContent = "Fehler beim Erstellen des Battles.";
+        });
+      } else {
+        const data = snapshot.val();
+        console.log("📦 Battle-Daten geladen:", data);
+        renderBattle(data.game1, data.game2);
+      }
+    }).catch(error => {
+      console.error("❌ Fehler beim Laden des Battles:", error);
+      result.textContent = "Fehler beim Laden des Battles.";
+    });
+  
+    function renderBattle(game1, game2) {
+      container.innerHTML = `
+        <div class="flex flex-col items-center">
+          <img src="${gameData[game1]}" class="w-40 h-40 object-cover rounded-lg shadow-lg" />
+          <h2 class="text-xl font-semibold mt-2">${game1}</h2>
+          <button id="btn-${game1}" onclick="vote('${game1}')" class="mt-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded transition">Stimme für ${game1}</button>
+        </div>
+        <span class="text-2xl font-bold text-gray-400">VS</span>
+        <div class="flex flex-col items-center">
+          <img src="${gameData[game2]}" class="w-40 h-40 object-cover rounded-lg shadow-lg" />
+          <h2 class="text-xl font-semibold mt-2">${game2}</h2>
+          <button id="btn-${game2}" onclick="vote('${game2}')" class="mt-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded transition">Stimme für ${game2}</button>
+        </div>
+      `;
+      listenForVotes(game1, game2);
+    }
+  
+    function showToast(message, color = "bg-green-600") {
+      const toast = document.createElement("div");
+      toast.textContent = message;
+      toast.className = `${color} text-white px-4 py-2 rounded fixed bottom-4 left-1/2 transform -translate-x-1/2 shadow-lg z-50`;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+  
+    window.vote = function(gameKey) {
+      const votedKey = "voted_" + today;
+      if (localStorage.getItem(votedKey)) {
+        showToast("Du hast heute bereits abgestimmt!", "bg-yellow-600");
+        return;
+      }
+  
+      console.log("🗳️ Stimme abgegeben für:", gameKey);
+      const voteRef = ref(db, `dailyBattle/${today}/votes/${gameKey}`);
+      runTransaction(voteRef, current => {
+        return (current || 0) + 1;
+      }).then(() => {
+        console.log("✅ Stimme erfolgreich gezählt für:", gameKey);
+        localStorage.setItem(votedKey, "true");
+        showToast(`✅ Stimme für ${gameKey} gezählt!`);
+  
+        // Animation am Button
+        const btn = document.getElementById("btn-" + gameKey);
+        if (btn) {
+          btn.classList.add("animate-pulse");
+          setTimeout(() => btn.classList.remove("animate-pulse"), 600);
+        }
+      }).catch(error => {
+        console.error("❌ Fehler beim Abstimmen:", error);
+        showToast(`❌ Fehler beim Abstimmen: ${error.message}`, "bg-red-600");
+      });
+    };
+  
+    function listenForVotes(game1, game2) {
+      const votesRef = ref(db, `dailyBattle/${today}/votes`);
+      onValue(votesRef, snapshot => {
+        const votes = snapshot.val() || {};
+        const v1 = votes[game1] ?? 0;
+        const v2 = votes[game2] ?? 0;
+        console.log("📊 Aktuelle Stimmen:", game1, v1, "|", game2, v2);
+        result.textContent = `Aktueller Stand: ${game1} (${v1}) vs ${game2} (${v2})`;
+      });
+    }
+
+    // Countdown bis 20:00 Uhr
+    function startCountdown() {
+  const countdownEl = document.getElementById("countdown");
+  function updateCountdown() {
+    const now = new Date();
+    const target = new Date();
+    target.setHours(20, 0, 0, 0); // 20:00 Uhr
+
+    if (now >= target) {
+      countdownEl.textContent = "⏳ Neues Battle wird geladen…";
+      location.reload(); // Seite neu laden
+      return;
+    }
+
+    const diff = target - now;
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    countdownEl.textContent = `🕒 Battle endet in: ${hours}h ${minutes}m ${seconds}s`;
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+}
+
+startCountdown();
+
+
+  </script>
+  <script src="https://www.instant-gaming.com/api/banner/partner/loader.js" defer></script>
+
+
+</body>
+</html>

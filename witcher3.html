@@ -40,19 +40,43 @@
 .toast-info { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
 .toast-warning { background: linear-gradient(135deg, #facc15, #eab308); color: #1a1a1a; }
 
+/* NEU: Für responsiven YouTube-Trailer */
+.aspect-video {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 Seitenverhältnis */
+}
+.aspect-video > iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+/* NEU: Keyframes für subtiles Pulsieren */
+@keyframes pulse-gold {
+  0% { box-shadow: 0 0 0 0 rgba(255, 204, 102, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 204, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 204, 102, 0); }
+}
+
+/* Klasse für den Button */
+.affiliate-pulse {
+  animation: pulse-gold 2s infinite;
+}
   </style>
   
 </head>
 <header class="bg-gray-800 text-white flex items-center justify-between px-6 py-3 shadow-md sticky top-0 z-50">
   <!-- Logo -->
   <div class="flex items-center space-x-3 cursor-pointer" onclick="window.location.href='index.html'">
-    <img src="https://via.placeholder.com/40" alt="Logo" class="w-10 h-10 rounded-full">
+    <img src="Logo.png" alt="Logo" class="w-10 h-10 rounded-full">
     <span class="text-3xl font-bold">TopGames</span>
   </div>
 
   <!-- Navigation Buttons -->
   <nav class="flex space-x-4">
-    <button class="px-4 py-2 bg-blue-600 rounded hover:bg-blue-500 transition" onclick="window.location.href='index.html'">Startseite</button>
+    <button class="px-4 py-2 bg-blue-600 rounded hover:bg-blue-500 transition" onclick="window.location.href='index.html'">Home</button>
     <button class="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600 transition" onclick="window.location.href='more.html'">Impressum</button>
   </nav>
 </header>
@@ -66,27 +90,128 @@
   <main class="max-w-6xl mx-auto p-6">
     <a href="index.html" class="text-blue-400 hover:text-blue-300">← Zurück zur Liste</a>
     <div class="mt-10 flex flex-col md:flex-row gap-6">
-      <img src="https://upload.wikimedia.org/wikipedia/en/0/0c/Witcher_3_cover_art.jpg" class="w-60 rounded-lg object-cover" />
-      <div>
-        <h1 class="text-3xl font-bold text-blue-300">The Witcher 3: Wild Hunt (2015)</h1>
-        <p class="text-gray-400 mt-1">Genre: Action-RPG · Plattform: PC / PS4 / Xbox One</p>
-        <p class="mt-4">Erlebe mit The Witcher 3: Wild Hunt ein episches Abenteuer in einer atemberaubend lebendigen Fantasy-Welt. Erkunde weitläufige Landschaften, von dichten Wäldern bis zu pulsierenden Städten, und tauche in eine spannende Geschichte um Geralt von Riva ein. Begegne einzigartigen Charakteren und triff Entscheidungen, die die Welt und den Verlauf der Handlung spürbar verändern. Kämpfe gegen gefährliche Monster mit einem dynamischen und taktischen Kampfsystem, das jede Begegnung spannend macht. Genieße die detailreiche Grafik, den eindrucksvollen Soundtrack und die fesselnde Atmosphäre, die dich vollständig in die Welt hineinziehen. Entdecke unzählige Quests, Geheimnisse und Erweiterungen, die das Spiel zu einem unvergesslichen Erlebnis machen. Ein Meilenstein des modernen RPG-Genres.</p>
-        <button onclick="location.href='https://www.instant-gaming.com/de/1497-kaufen-the-witcher-3-wild-hunt-game-of-the-year-edition-goty-edition-pc-spiel-gog-com/?igr=official-rankings'" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg mt-4 text-blue-400 hover:text-blue-300">🔗 Zum Produkt</button>
+      <div class="md:w-3/4 flex flex-col lg:flex-row gap-6">
+        <img src="https://upload.wikimedia.org/wikipedia/en/0/0c/Witcher_3_cover_art.jpg" class="w-60 rounded-lg object-cover" />
+        <div>
+          <h1 class="text-3xl font-bold text-blue-300">The Witcher 3: Wild Hunt (2015)</h1>
+          <p class="text-gray-400 mt-1">Genre: Action-RPG · Plattform: PC / PS4 / Xbox One</p>
+          <p class="mt-4">Erlebe mit The Witcher 3: Wild Hunt ein episches Abenteuer in einer atemberaubend lebendigen Fantasy-Welt. Erkunde weitläufige Landschaften, von dichten Wäldern bis zu pulsierenden Städten, und tauche in eine spannende Geschichte um Geralt von Riva ein. Begegne einzigartigen Charakteren und triff Entscheidungen, die die Welt und den Verlauf der Handlung spürbar verändern. Kämpfe gegen gefährliche Monster mit einem dynamischen und taktischen Kampfsystem, das jede Begegnung spannend macht. Genieße die detailreiche Grafik, den eindrucksvollen Soundtrack und die fesselnde Atmosphäre, die dich vollständig in die Welt hineinziehen. Entdecke unzählige Quests, Geheimnisse und Erweiterungen, die das Spiel zu einem unvergesslichen Erlebnis machen. Ein Meilenstein des modernen RPG-Genres.</p>
+          <button onclick="window.open('https://www.instant-gaming.com/de/1497-kaufen-the-witcher-3-wild-hunt-game-of-the-year-edition-goty-edition-pc-spiel-gog-com/?igr=official-rankings', '_blank')" class=" affiliate-pulse px-6 py-3 bg-witcher-gold text-red-500 hover:text-black font-extrabold rounded-xl shadow-lg hover:bg-yellow-300 hover:shadow-xl transition-all duration-300 transform hover:scale-105 mt-4 text-lg">
+            🔥 Jetzt sparen & Geralt werden!
+          </button>
+        </div>
+      </div> 
+      
+      <div class="md:w-1/4 mt-20">
+        <div class="bg-gray-800 p-4 rounded-lg shadow-md mt-6 md:mt-0">
+          <h3 class="text-xl font-semibold mb-3 text-witcher-gold">Spiel-Details</h3>
+          <ul class="space-y-2 text-gray-300 text-sm">
+            <li><strong>Entwickler:</strong> CD PROJEKT RED</li>
+            <li><strong>Publisher:</strong> CD PROJEKT RED</li>
+            <li><strong>Release-Datum:</strong> 19. Mai 2015</li>
+            <li><strong>Plattformen:</strong> PC, PS4, Xbox One, Nintendo Switch, PS5, Xbox Series X/S</li>
+            <li><strong>Offizielle Website:</strong> <a href="https://www.thewitcher.com" target="_blank" class="text-blue-400 hover:underline">thewitcher.com</a></li>
+          </ul>
+        </div>
+      </div>
+  </div>
+  <h4 class="text-xl font-bold text-gray-300 mt-8 mb-3">Highlights</h4>
+<ul class="list-disc list-inside space-y-1 text-gray-400 ml-4">
+    <li>Riesige offene Welt mit über 100 Stunden Spielzeit.</li>
+    <li>Moralisch komplexe Entscheidungen mit weitreichenden Konsequenzen.</li>
+    <li>Dynamisches und taktisches Kampfgeschehen.</li>
+    <li>Die Suche nach Ciri, dem Kind der Prophezeiung.</li>
+</ul>
+  <div class="mt-10 mb-12 flex flex-col md:flex-row gap-8">
+  
+    <div class="md:w-1/2 p-6 bg-gray-800 rounded-xl shadow-lg">
+      <p class="text-3xl font-bold text-yellow-600 mb-2">User Rating:</p>
+      
+      <div class="rating flex gap-1 text-yellow-400 text-4xl mt-1" data-game="The Witcher 3">
+        <span class="star cursor-pointer transition-transform duration-150">☆</span>
+        <span class="star cursor-pointer transition-transform duration-150">☆</span>
+        <span class="star cursor-pointer transition-transform duration-150">☆</span>
+        <span class="star cursor-pointer transition-transform duration-150">☆</span>
+        <span class="star cursor-pointer transition-transform duration-150">☆</span>
+      </div>
+      <p class="avg text-sm text-gray-400 mt-2">⭐ Durchschnitt: –</p>
+    </div>
+    
+    <div class="md:w-1/2 p-6 bg-gray-800 rounded-xl shadow-lg">
+      <p class="text-3xl font-bold text-blue-400 mb-4">Kritiker-Scores:</p>
+      <div class="flex gap-8">
+        <div>
+          <span class="text-4xl font-extrabold text-green-500">93</span>
+          <p class="text-gray-400">Metacritic Score</p>
+        </div>
+        <div>
+          <span class="text-4xl font-extrabold text-blue-500">9.3</span>
+          <p class="text-gray-400">GOG User Score</p>
+        </div>
       </div>
     </div>
-    <div>
-    <p class="text-3xl font-bold text-yellow-600 mt-2">User Rating:</p>
+  </div>
+
+    <h2 class="text-2xl font-bold text-blue-300 mt-10 mb-4">Launch Trailer</h2>
+    <div class="aspect-video w-full rounded-lg overflow-hidden shadow-lg">
+      <iframe 
+        src="https://www.youtube.com/embed/c0i88t0Kacs" 
+        title="The Witcher 3: Wild Hunt - Launch Trailer" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen
+        class="w-full h-full"
+      ></iframe>
     </div>
-    <!-- HTML für die Sternebewertung -->
-    <div class=" rating flex gap-1 text-yellow-400 text-4xl mt-1" data-game="The Witcher 3">
-      <span class="star cursor-pointer transition-transform duration-150">☆</span>
-      <span class="star cursor-pointer transition-transform duration-150">☆</span>
-      <span class="star cursor-pointer transition-transform duration-150">☆</span>
-      <span class="star cursor-pointer transition-transform duration-150">☆</span>
-      <span class="star cursor-pointer transition-transform duration-150">☆</span>
+
+    <h2 class="text-2xl font-bold text-blue-300 mt-10 mb-4">Screenshots</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <img src="https://cdn.akamai.steamstatic.com/steam/apps/292030/ss_18118ab2841f893635d7f21f1d4f71a067e231b5.1920x1080.jpg?t=1704212727" alt="Witcher 3 Screenshot 1" class="rounded-lg object-cover w-full h-auto cursor-pointer hover:opacity-80 transition-opacity">
+      <img src="https://cdn.akamai.steamstatic.com/steam/apps/292030/ss_821d9e9c31b3156e54c03b1151613b52d68f7636.1920x1080.jpg?t=1704212727" alt="Witcher 3 Screenshot 2" class="rounded-lg object-cover w-full h-auto cursor-pointer hover:opacity-80 transition-opacity">
+      <img src="https://cdn.akamai.steamstatic.com/steam/apps/292030/ss_b88b3c804617a268153c1cf3330f82c4f82d4333.1920x1080.jpg?t=1704212727" alt="Witcher 3 Screenshot 3" class="rounded-lg object-cover w-full h-auto cursor-pointer hover:opacity-80 transition-opacity">
     </div>
-    <p class="avg text-sm text-gray-400 mt-2 mb-12">⭐ Durchschnitt: –</p>
     
+    <h2 class="text-2xl font-bold text-blue-300 mt-10 mb-4">Erweiterungen</h2>
+    <div class="flex flex-col md:flex-row gap-6">
+      <div class="flex gap-4 bg-gray-800 p-3 rounded-lg">
+        <img src="[PLATZHALTER FÜR URL ZU BILD]" class="w-20 h-28 object-cover rounded">
+        <div>
+          <h4 class="font-semibold text-lg">Hearts of Stone</h4>
+          <p class="text-gray-400 text-sm">Eine 10-stündige Erweiterung mit neuen Charakteren, Monstern und einer einzigartigen Geschichte.</p>
+        </div>
+      </div>
+      <div class="flex gap-4 bg-gray-800 p-3 rounded-lg">
+        <img src="[URL_zu_BaW_Cover]" class="w-20 h-28 object-cover rounded">
+        <div>
+          <h4 class="font-semibold text-lg">Blood and Wine</h4>
+          <p class="text-gray-400 text-sm">Eine 20-stündige Erweiterung in der neuen Region Toussaint, mit neuen Abenteuern und Geheimnissen.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-bold text-blue-300 mt-10 mb-4">Systemanforderungen (PC)</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-800 p-6 rounded-xl shadow-lg mb-12">
+  <div>
+    <h4 class="font-semibold text-xl text-witcher-gold mb-3">Minimal</h4>
+    <ul class="list-disc list-inside space-y-2 text-gray-300 pl-4">
+      <li><strong>OS:</strong> 64-bit Windows 7 or 64-bit Windows 8 (8.1)</li>
+      <li><strong>Prozessor:</strong> Intel CPU Core i5-2500K 3.3GHz / AMD CPU Phenom II X4 940</li>
+      <li><strong>Arbeitsspeicher:</strong> 6 GB RAM</li>
+      <li><strong>Grafikkarte:</strong> Nvidia GPU GeForce GTX 660 / AMD GPU Radeon HD 7870</li>
+      <li><strong>Speicherplatz:</strong> 40 GB verfügbarer Speicherplatz</li>
+    </ul>
+  </div>
+  <div>
+    <h4 class="font-semibold text-xl text-witcher-gold mb-3">Empfohlen</h4>
+    <ul class="list-disc list-inside space-y-2 text-gray-300 pl-4">
+      <li><strong>OS:</strong> 64-bit Windows 10/11</li>
+      <li><strong>Prozessor:</strong> Intel CPU Core i7 3770 3.4 GHz / AMD CPU AMD FX-8350 4 GHz</li>
+      <li><strong>Arbeitsspeicher:</strong> 8 GB RAM</li>
+      <li><strong>Grafikkarte:</strong> Nvidia GPU GeForce GTX 770 / AMD GPU Radeon R9 290</li>
+      <li><strong>Speicherplatz:</strong> 40 GB verfügbarer Speicherplatz (SSD empfohlen)</li>
+    </ul>
+  </div>
+</div>
     <div class="" id="instantGamingBanner_Game1"></div>
 
     <script>

@@ -41,23 +41,50 @@
 .toast-info { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
 .toast-warning { background: linear-gradient(135deg, #facc15, #eab308); color: #1a1a1a; }
 
+#newsText {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
 
   </style>
   
 </head>
-<header class="bg-gray-800 text-white flex items-center justify-between px-6 py-3 shadow-md sticky top-0 z-50">
-  <!-- Logo -->
-  <div class="flex items-center space-x-3 cursor-pointer" onclick="window.location.href='index.html'">
-    <img src="https://via.placeholder.com/40" alt="Logo" class="w-10 h-10 rounded-full">
-    <span class="text-3xl font-bold">TopGames</span>
+<header class="flex flex-col p-4 bg-gray-900 text-white space-y-3">
+  <!-- Obere Zeile: Logo links, Buttons rechts -->
+  <div class="flex justify-between items-center w-full">
+    <!-- Logo -->
+    <div class="flex items-center space-x-3 cursor-pointer" onclick="window.location.href='index.html'">
+      <img src="Logo.png" alt="Logo" class="w-10 h-10 rounded-full">
+      <span class="text-3xl font-bold">TopGames</span>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <nav class="flex space-x-4">
+      <button 
+  onclick="window.location.href='battle.html'" 
+  class="px-3 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg transition">
+  ⚔️ Battle 
+</button>
+
+      <button class="px-4 py-2 bg-blue-600 rounded hover:bg-blue-500 transition" onclick="window.location.href='index.html'">Home</button>
+      <button class=" px-2 py-2 bg-gray-700 rounded hover:bg-gray-600 transition" onclick="window.location.href='more.html'">Impressum</button>
+      
+    </nav>
   </div>
 
-  <!-- Navigation Buttons -->
-  <nav class="flex space-x-4">
-    <button class="px-4 py-2 bg-blue-600 rounded hover:bg-blue-500 transition" onclick="window.location.href='index.html'">Startseite</button>
-    <button class="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600 transition" onclick="window.location.href='more.html'">Impressum</button>
-  </nav>
+  <!-- Suchleiste darunter -->
+  <div class="flex-1 flex justify-center px-6">
+    <input 
+      id="searchInput" 
+      type="text" 
+      placeholder="🔎 Spiel suchen..." 
+      class="max-w-[62%] w-full px-4 py-2 rounded-lg bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
+    />
+</div>
+
 </header>
+
+
 
 <body class="bg-gray-900 text-gray-100 font-sans">
 
@@ -69,21 +96,30 @@
   </header>
   
   <main class="max-w-5xl mx-auto p-6">
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
-      <input id="searchInput" type="text" placeholder="🔎 Spiel suchen..."
-        class="w-full md:w-1/2 px-4 py-2 rounded-lg bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400" />
-      <select id="sortSelect"
-        class="px-4 py-2 rounded-lg bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400">
-        <option value="default">Offizielles Ranking</option>
-        <option value="name">Nach Name (A–Z)</option>
-        <option value="year">Nach Jahr (neueste zuerst)</option>
-        <option value="rating">Nach Bewertung</option>
-      </select>
-      <button id="showFavs" class="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-200">
-        ❤️ Nur Favoriten
-      </button>
-      
-    </div>
+   <!-- 📰 Rotierendes News-Banner (anstelle der Suchleiste) -->
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+  <div id="newsBanner" class="relative w-full md:w-1/2 bg-gray-800 rounded-lg shadow-md p-4 overflow-hidden text-center">
+    <p id="newsText" class="text-lg text-blue-300 font-semibold transition-opacity duration-500 mr-6 ml-6">
+      🎮 Lade aktuelle Gaming-News...
+    </p>
+
+    <!-- Navigationspfeile -->
+    <button id="prevNews" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-400 text-2xl">◀</button>
+    <button id="nextNews" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-400 text-2xl">▶</button>
+  </div>
+
+  <select id="sortSelect"
+    class="px-4 py-2 rounded-lg bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400">
+    <option value="default">Offizielles Ranking</option>
+    <option value="name">Nach Name (A–Z)</option>
+    <option value="year">Nach Jahr (neueste zuerst)</option>
+    <option value="rating">Nach Bewertung</option>
+  </select>
+  <button id="showFavs" class="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-200">
+    ❤️ Nur Favoriten
+  </button>
+</div>
+
     
 
     <ol id="gameList" class="space-y-4 list-decimal list-inside">
@@ -96,31 +132,33 @@
           <h2 class="text-2xl font-semibold text-blue-300">The Witcher 3: Wild Hunt (2015)</h2>
           <p class="text-gray-400 text-sm">Action-RPG · CD Projekt RED · Bewertung 9.8</p>
           <div class="rating flex gap-1 text-yellow-400 text-xl mt-1" data-game="The Witcher 3">
-           
           </div>
-      
           <!-- Durchschnittsanzeige -->
           <p class="avg text-sm text-gray-400 ml-1">⭐ Durchschnitt: –</p>
-        </div>
-      
-          
-        </button>
-          </div>
-          
-        </div>
+        </div> 
         <button class="favorite ml-auto text-gray-500 hover:text-red-400 text-2xl" onclick="toggleFavorite(event, 'The Witcher 3')">♡</button>
       </li>
 
-      <li class="game border-b border-gray-800 pb-4 flex gap-4 items-center cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition"
-          data-name="Red Dead Redemption 2" data-year="2018" data-rating="9.9" onclick="location.href='rdr2.html'">
-          <span class="text-gray-600 text-2xl font-bold w-8 text-right mr-4 counter"></span>
-        <img src="https://upload.wikimedia.org/wikipedia/en/4/44/Red_Dead_Redemption_II.jpg" class="w-20 h-20 rounded-lg object-cover" />
-        <div>
-          <h2 class="text-2xl font-semibold text-blue-300">Red Dead Redemption 2 (2018)</h2>
-          <p class="text-gray-400 text-sm">Open World · Rockstar Games · Bewertung 9.9</p>
-        </div>
-        <button class="favorite ml-auto text-gray-500 hover:text-red-400 text-2xl" onclick="toggleFavorite(event, 'Red Dead Redemption 2')">♡</button>
-      </li>
+<!-- NÄCHSTER TITEL -->
+      
+<li class="game border-b border-gray-800 pb-4 flex gap-4 items-center cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition"
+data-name="Red Dead Redemption 2" data-year="2018" data-rating="9.9" onclick="location.href='rdr2.html'">
+<span class="text-gray-600 text-2xl font-bold w-8 text-right mr-4 counter"></span>
+<img src="https://upload.wikimedia.org/wikipedia/en/4/44/Red_Dead_Redemption_II.jpg" class="w-20 h-20 rounded-lg object-cover" />
+<div>
+<h2 class="text-2xl font-semibold text-blue-300">Red Dead Redemption 2 (2018)</h2>
+<p class="text-gray-400 text-sm">Open World · Rockstar Games · Bewertung 9.9</p>
+<div class="rating flex gap-1 text-yellow-400 text-xl mt-1" data-game="Red Dead Redemption 2">
+</div>
+<!-- Durchschnittsanzeige -->
+<p class="avg text-sm text-gray-400 ml-1">⭐ Durchschnitt: –</p>
+</div> 
+<button class="favorite ml-auto text-gray-500 hover:text-red-400 text-2xl" onclick="toggleFavorite(event, 'Red Dead Redemption 2')">♡</button>
+</li>
+
+<!-- NÄCHSTER TITEL -->
+
+   
 
       <li class="game border-b border-gray-800 pb-4 flex gap-4 items-center cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition"
           data-name="Cyberpunk 2077" data-year="2020" data-rating="8.5" onclick="location.href='cyberpunk2077.html'">
@@ -487,7 +525,48 @@ document.querySelectorAll(".rating").forEach(container => {
 
 
   </script>
-  
+
+  <script>
+    const news = [
+      "📰 GTA VI erscheint 2026 – Rockstar bestätigt neuen Trailer!",
+      "🔥 The Witcher 4 offiziell in Entwicklung bei CD Projekt RED.",
+      "🎮 Steam startet Herbst-Sale mit bis zu 90 % Rabatt!",
+      "⚔️ Elden Ring DLC 'Shadow of the Erdtree' erhält Top-Bewertungen.",
+      "💾 Cyberpunk 2077 erreicht nach Update 2.0 über 30 Millionen Verkäufe!"
+    ];
+    
+    let currentNews = 0;
+    const newsText = document.getElementById("newsText");
+    
+    function showNews(index) {
+      if (!newsText) return;
+      newsText.style.opacity = 0;
+      setTimeout(() => {
+        newsText.textContent = news[index];
+        newsText.style.opacity = 1;
+      }, 300);
+    }
+    
+    document.getElementById("prevNews").addEventListener("click", () => {
+      currentNews = (currentNews - 1 + news.length) % news.length;
+      showNews(currentNews);
+    });
+    
+    document.getElementById("nextNews").addEventListener("click", () => {
+      currentNews = (currentNews + 1) % news.length;
+      showNews(currentNews);
+    });
+    
+    // Automatisches Rotieren alle 5 Sekunden
+    setInterval(() => {
+      currentNews = (currentNews + 1) % news.length;
+      showNews(currentNews);
+    }, 7000);
+    
+    // Beim Laden das erste News-Item anzeigen
+    document.addEventListener("DOMContentLoaded", () => showNews(currentNews));
+    </script>
+    
 
 </body>
 </html>
