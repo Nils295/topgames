@@ -156,7 +156,81 @@
     <script src="https://www.instant-gaming.com/api/banner/partner/loader.js" defer></script>
   </main>
   <script type="module">
-    // Bitte kopiere hier für dein Rating und Toast-System denselben JS-Code wie bei den anderen Spielen.
+    function showToast(message, type = "success") {
+      const container = document.getElementById("toastContainer");
+      const toast = document.createElement("div");
+      toast.classList.add("toast");
+      const icons = { success: "✅", error: "❌", info: "ℹ️", warning: "⚠️"};
+      const typeClass = {
+        success: "toast-success",
+        error: "toast-error",
+        info: "toast-info",
+        warning: "toast-warning"
+      }[type];
+      toast.classList.add(typeClass);
+      toast.innerHTML = `
+        <span class="toast-icon">${icons[type]}</span>
+        <span>${message}</span>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 3500);
+    }
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyBcZ-uTuqIjo2aGykHO8Z-AAYAj3XturJM",
+      authDomain: "topgames-3a050.firebaseapp.com",
+      databaseURL: "https://topgames-3a050-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "topgames-3a050",
+      storageBucket: "topgames-3a050.firebasestorage.app",
+      messagingSenderId: "389330561319",
+      appId: "1:389330561319:web:a9e313f393f0ae42d06102",
+      measurementId: "G-MVY72K081M"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    let userId = localStorage.getItem("userId");
+    if (!userId) {
+      userId = 'user_' + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem("userId", userId);
+    }
+    const container = document.querySelector(".rating");
+    const avgElem = container.nextElementSibling;
+    const game = container.getAttribute("data-game");
+    const stars = container.querySelectorAll(".star");
+    function updateStars(currentRating) {
+      stars.forEach((star, index) => { star.textContent = (index < currentRating) ? '★' : '☆'; });
+    }
+    stars.forEach((star, index) => {
+      star.addEventListener("click", () => {
+        const rating = index + 1;
+        set(ref(db, "ratings/" + game + "/users/" + userId), rating);
+        showToast("⭐ Bewertung gespeichert!", "success");
+      });
+      star.addEventListener("mouseover", () => { updateStars(index + 1); });
+      star.addEventListener("mouseout", () => {
+        const userRef = ref(db, "ratings/" + game + "/users/" + userId);
+        onValue(userRef, snapshot => {
+          const savedRating = snapshot.exists() ? snapshot.val() : 0;
+          updateStars(savedRating);
+        }, { onlyOnce: true });
+      });
+    });
+    const usersRef = ref(db, "ratings/" + game + "/users");
+    onValue(usersRef, snapshot => {
+      let total = 0, count = 0, userRating = 0;
+      if (snapshot.exists()) {
+        const ratings = snapshot.val();
+        Object.entries(ratings).forEach(([uid, rating]) => {
+          total += rating;
+          count++;
+          if (uid === userId) userRating = rating;
+        });
+      }
+      const avg = count > 0 ? (total / count).toFixed(1) : "-";
+      avgElem.textContent = `⭐ Durchschnitt: ${avg} / 5 (${count} Bewertungen)`;
+      updateStars(userRating);
+    });
   </script>
 </body>
 </html>
