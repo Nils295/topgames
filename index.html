@@ -178,17 +178,25 @@ data-name="cyberpunk2077" data-year="2020" data-rating="8.5" onclick="location.h
 
 <!-- NÄCHSTER TITEL -->
 
-      <li class="game border-b border-gray-800 pb-4 flex gap-4 items-center cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition"
-      data-name="Elden Ring" data-year="2022" data-rating="9.7" onclick="location.href='eldenring.html'">
-      <span class="text-gray-600 text-2xl font-bold w-8 text-right mr-4 counter"></span>
-        <img src="https://upload.wikimedia.org/wikipedia/en/b/b9/Elden_Ring_Box_art.jpg" class="w-20 h-20 rounded-lg object-cover" />
-        <div>
-          <h2 class="text-2xl font-semibold text-blue-300">Elden Ring (2022)</h2>
-          <p class="text-gray-400 text-sm">Action RPG · FromSoftware · Bewertung 9.7</p>
-        </div>
-        <button class="favorite ml-auto text-gray-500 hover:text-red-400 text-2xl" onclick="toggleFavorite(event, 'Elden Ring')">♡</button>
-      </li>
+     <li class="game border-b border-gray-800 pb-4 flex gap-4 items-center cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition"
+ data-name="Elden Ring" data-year="2022" data-rating="9.7" onclick="location.href='eldenring.html'">
+  <span class="text-gray-600 text-2xl font-bold w-8 text-right mr-4 counter"></span>
+  <img src="https://upload.wikimedia.org/wikipedia/en/b/b9/Elden_Ring_Box_art.jpg" class="w-20 h-20 rounded-lg object-cover" />
+  <div>
+    <h2 class="text-2xl font-semibold text-blue-300">Elden Ring (2022)</h2>
+    <p class="text-gray-400 text-sm">Action RPG · FromSoftware · Bewertung 9.7</p>
+    <div class="rating flex gap-1 text-yellow-400 text-xl mt-1" data-game="Elden Ring">
+    </div>
+    <!-- Durchschnittsanzeige -->
+    <p class="avg text-sm text-gray-400 ml-1">⭐ Durchschnitt: –</p>
+  </div>
+  <button class="favorite ml-auto text-gray-500 hover:text-red-400 text-2xl" onclick="toggleFavorite(event, 'Elden Ring')">♡</button>
+</li>
 
+
+      <!-- NÄCHSTER TITEL -->
+
+      
       <li class="game border-b border-gray-800 pb-4 flex gap-4 items-center cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition"
       data-name="GTA V" data-year="2013" data-rating="9.5" onclick="location.href='gtav.html'">
       <span class="text-gray-600 text-2xl font-bold w-8 text-right mr-4 counter"></span>
