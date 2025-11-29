@@ -160,16 +160,23 @@ data-name="Red Dead Redemption 2" data-year="2018" data-rating="9.9" onclick="lo
 
    
 
-      <li class="game border-b border-gray-800 pb-4 flex gap-4 items-center cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition"
-          data-name="Cyberpunk 2077" data-year="2020" data-rating="8.5" onclick="location.href='cyberpunk2077.html'">
-          <span class="text-gray-600 text-2xl font-bold w-8 text-right mr-4 counter"></span>
-        <img src="https://upload.wikimedia.org/wikipedia/en/9/9f/Cyberpunk_2077_box_art.jpg" class="w-20 h-20 rounded-lg object-cover" />
-        <div>
-          <h2 class="text-2xl font-semibold text-blue-300">Cyberpunk 2077 (2020)</h2>
-          <p class="text-gray-400 text-sm">Action / RPG · CD Projekt RED · Bewertung 8.5</p>
-        </div>
-        <button class="favorite ml-auto text-gray-500 hover:text-red-400 text-2xl" onclick="toggleFavorite(event, 'Cyberpunk 2077')">♡</button>
-      </li>
+<li class="game border-b border-gray-800 pb-4 flex gap-4 items-center cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition"
+data-name="cyberpunk2077" data-year="2020" data-rating="8.5" onclick="location.href='cyberpunk2077.html'">
+<span class="text-gray-600 text-2xl font-bold w-8 text-right mr-4 counter"></span>
+<img src="https://upload.wikimedia.org/wikipedia/en/4/44/Red_Dead_Redemption_II.jpg" class="w-20 h-20 rounded-lg object-cover" />
+<div>
+<h2 class="text-2xl font-semibold text-blue-300">Cyberpunk 2077 (2020)</h2>
+<p class="text-gray-400 text-sm">Action / RPG · CD Projekt RED · Bewertung 8.5</p>
+<div class="rating flex gap-1 text-yellow-400 text-xl mt-1" data-game="cyberpunk2077">
+</div>
+<!-- Durchschnittsanzeige -->
+<p class="avg text-sm text-gray-400 ml-1">⭐ Durchschnitt: –</p>
+</div> 
+<button class="favorite ml-auto text-gray-500 hover:text-red-400 text-2xl" onclick="toggleFavorite(event, 'cyberpunk 2077')">♡</button>
+</li>
+
+
+<!-- NÄCHSTER TITEL -->
 
       <li class="game border-b border-gray-800 pb-4 flex gap-4 items-center cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition"
       data-name="Elden Ring" data-year="2022" data-rating="9.7" onclick="location.href='eldenring.html'">
